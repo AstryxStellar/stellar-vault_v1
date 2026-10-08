@@ -1,3 +1,4 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
 <!DOCTYPE html>
 <html lang="es"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
@@ -17,12 +18,18 @@ ol.steps{list-style:none;padding:0 0 12px;margin:0 0 20px;font-size:14px;flex-wr
 .pd>*,.gal,.big{min-width:0}.big .cover{--w:min(280px,58vw)!important}.big .pi{max-width:100%}
 .helpg{display:grid;gap:12px;max-width:760px}details.panel{padding:16px 20px}details.panel summary{font-weight:700;cursor:pointer}details.panel ol{margin:0;padding-left:20px}summary:focus-visible{outline:3px solid var(--ink);outline-offset:2px;border-radius:4px}
 .undo{display:flex;justify-content:space-between;align-items:center;gap:8px;background:#fff0f4;border:1px solid var(--line);border-radius:8px;padding:8px 12px;margin-bottom:8px;font-size:13px}
+.rev{min-width:0;overflow:hidden}.rev,.rev p,.rev b,.rev>div>div{overflow-wrap:anywhere;word-break:break-word}.rev>div>div:first-child{min-width:0;flex:1}.rev .trash{flex:none}
+.grp{grid-column:1/-1;margin:8px 0 0;font-size:20px;padding-bottom:6px;border-bottom:2px solid var(--line)}.grp:first-child{margin-top:0}.grp small{font-weight:400;color:var(--mute);font-size:13px;margin-left:6px}
+.pager{display:flex;align-items:center;justify-content:center;gap:8px;flex-wrap:wrap;margin:32px 0 8px}.pager ol{display:flex;gap:6px;list-style:none;padding:0;margin:0}
+.pg{min-width:40px;height:40px;padding:0 14px;border:1px solid var(--bd);border-radius:8px;background:var(--card);font-weight:700;display:inline-flex;align-items:center;justify-content:center;gap:2px}
+.pg:hover:not(:disabled){border-color:var(--acc);color:var(--acc)}.pg.num{padding:0}.pg[aria-current=page]{background:var(--acc);border-color:var(--acc);color:#fff}.pg:disabled{opacity:.45;cursor:not-allowed}
+.pager .gap{min-width:24px;text-align:center;color:var(--mute);align-self:center}
+@media(max-width:520px){.pgt{display:none}.pg{padding:0 12px}}
 a{color:inherit}
 .mainnav{display:flex;gap:4px}.mainnav button{background:none;border:0;border-bottom:3px solid transparent;padding:10px 12px;font-weight:600;color:var(--ink);border-radius:0}.mainnav button:hover{color:var(--acc)}.mainnav button[aria-current=page]{color:var(--acc);border-bottom-color:var(--acc)}
 .fgrid{display:grid;grid-template-columns:1.4fr 1fr 1.2fr;gap:40px}footer h2{font-size:18px;margin:0 0 12px;color:var(--ink)}footer p{margin:0;line-height:1.6}footer ul{list-style:none;padding:0;margin:0}
 .flink{background:none;border:0;padding:5px 0;color:var(--ink);font-size:14px;text-align:left}.flink:hover{color:var(--acc);text-decoration:underline}
 .ct{margin:0}.ct dt{font-weight:700;color:var(--ink);margin-top:10px}.ct dd{margin:2px 0 0}
-.soc{display:flex;gap:12px}.soc a{width:42px;height:42px;border-radius:50%;display:grid;place-items:center}.soc a:focus-visible{outline:3px solid var(--ink);outline-offset:2px}
 .fcopy{border-top:1px solid var(--line);margin-top:28px;padding-top:16px;font-size:13px}
 .f select{width:100%;height:44px;border:1px solid var(--bd);border-radius:8px;padding:0 12px;background:var(--card)}.f select:focus{border:2px solid var(--acc);box-shadow:0 0 0 3px #fbcfe0;outline:0}.f.bad select{border:2px solid var(--red)}
 .cta{text-align:center;margin:28px 0 8px}
@@ -153,7 +160,7 @@ footer{border-top:3px solid var(--acc);background:var(--card);padding:36px 64px 
 <a class="skip" href="#app" onclick="event.preventDefault();document.getElementById('app').focus()">Saltar al contenido</a>
 <header>
  <button class="logo" onclick="go('home')" aria-label="STELLAR VAULT, ir al inicio"><img id="hlogo" alt="" width="48" height="48">STELLAR<b>VAULT</b></button>
- <nav class="mainnav" aria-label="Principal"><button id="nHome" onclick="go('home')">Inicio</button><button id="nCat" onclick="go('cat')">Catálogo</button><button id="nHelp" onclick="go('help')">Ayuda</button></nav>
+ <nav class="mainnav" aria-label="Principal"><button id="nHome" onclick="go('home')">Inicio</button><button id="nCat" onclick="openCat()">Catálogo</button><button id="nHelp" onclick="go('help')">Ayuda</button></nav>
  <input class="search" id="q" placeholder="Buscar manga, novela ligera o figura…" aria-label="Buscar">
  <button class="cartbtn" id="cartBtn" onclick="openCart()"></button>
 </header>
@@ -163,10 +170,10 @@ footer{border-top:3px solid var(--acc);background:var(--card);padding:36px 64px 
  <div class="fgrid">
   <section aria-labelledby="f1"><div style="display:flex;align-items:center;gap:12px;margin-bottom:12px"><img id="flogo" alt="" width="44" height="44"><h2 id="f1" style="margin:0">Tienda</h2></div>
    <p>STELLAR VAULT es tu tienda geek de mangas, novelas ligeras y figuras coleccionables. Trabajamos para que encuentres tus series favoritas. Hacemos envíos por Servientrega a todo el Ecuador o puedes retirar tu pedido en tienda.</p></section>
-  <nav aria-labelledby="f2"><h2 id="f2">STELLAR VAULT</h2><ul><li><button class="flink" onclick="go('home')">Inicio</button></li><li><button class="flink" onclick="go('cat')">Catálogo</button></li><li><button class="flink" onclick="go('help')">Ayuda</button></li><li><button class="flink" onclick="goCat(['m','n','f'],'pre')">Preventas oficiales</button></li><li><button class="flink" onclick="goCat(['f'])">Figuras coleccionables</button></li></ul></nav>
+  <nav aria-labelledby="f2"><h2 id="f2">STELLAR VAULT</h2><ul><li><button class="flink" onclick="go('home')">Inicio</button></li><li><button class="flink" onclick="openCat()">Catálogo</button></li><li><button class="flink" onclick="go('help')">Ayuda</button></li><li><button class="flink" onclick="goCat(['m','n','f'],'pre')">Preventas oficiales</button></li><li><button class="flink" onclick="goCat(['f'])">Figuras coleccionables</button></li></ul></nav>
   <section aria-labelledby="f3"><h2 id="f3">Contacto</h2>
    <dl class="ct"><dt>Email</dt><dd>correo@ejemplo.com</dd><dt>Teléfono</dt><dd>+593 99 000 0000</dd><dt>Dirección</dt><dd>Quito, Ecuador</dd></dl>
-   <h3 style="font-size:14px;margin:16px 0 10px">Nuestras redes sociales</h3><div class="soc"><a href="https://www.whatsapp.com/" target="_blank" rel="noopener" aria-label="WhatsApp (se abre en una pestaña nueva)" style="background:#25d366"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" focusable="false"><path d="M12 3.5a8.5 8.5 0 0 0-7.3 12.8L3.5 20.5l4.3-1.1A8.5 8.5 0 1 0 12 3.5z" fill="none" stroke="#fff" stroke-width="1.8"/><path d="M9 7.8c-.4.6-.6 1.4-.1 2.5.9 2 2.6 3.7 4.7 4.5 1 .4 1.9.1 2.5-.4l.3-1-1.9-1-.8.8c-1-.4-2-1.4-2.4-2.4l.8-.8-1-2z" fill="#fff"/></svg></a><a href="https://www.facebook.com/" target="_blank" rel="noopener" aria-label="Facebook (se abre en una pestaña nueva)" style="background:#1877f2"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" focusable="false"><path d="M13.5 20v-6.5h2.2l.4-2.8h-2.6V9c0-.8.3-1.3 1.4-1.3h1.3V5.2c-.2 0-1-.1-1.9-.1-2 0-3.3 1.2-3.3 3.4v2.2H8.8v2.8H11V20z" fill="#fff"/></svg></a><a href="https://www.tiktok.com/" target="_blank" rel="noopener" aria-label="TikTok (se abre en una pestaña nueva)" style="background:#111"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" focusable="false"><path d="M16.2 4c.3 2 1.5 3.3 3.5 3.5v2.7c-1.3 0-2.5-.4-3.5-1.1v5.5a5.2 5.2 0 1 1-5.2-5.2h.6v2.8a2.4 2.4 0 1 0 1.8 2.3V4z" fill="#fff"/></svg></a><a href="https://www.instagram.com/" target="_blank" rel="noopener" aria-label="Instagram (se abre en una pestaña nueva)" style="background:linear-gradient(45deg,#f9a03f,#e1306c 55%,#833ab4)"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" focusable="false"><rect x="4.5" y="4.5" width="15" height="15" rx="4.5" fill="none" stroke="#fff" stroke-width="1.8"/><circle cx="12" cy="12" r="3.6" fill="none" stroke="#fff" stroke-width="1.8"/><circle cx="16.6" cy="7.4" r="1.1" fill="#fff"/></svg></a></div></section>
+   </section>
  </div>
  <div class="fcopy">Copyright © 2026 | STELLAR VAULT</div>
 </footer>
@@ -298,9 +305,9 @@ function openLayer(ov,box,target){if(!ov.classList.contains("on"))lastFocus=docu
 function closeLayer(ov){ov.classList.remove("on");if(!document.querySelector(".ov.on")){setBg(false);if(lastFocus&&document.contains(lastFocus))lastFocus.focus()}}
 const HASH={home:"",cat:"#/catalogo",help:"#/ayuda",co:""};
 function setHash(h){if(location.hash===h||(!h&&!location.hash))return;try{history.pushState(null,"",location.pathname+location.search+h)}catch(e){location.hash=h}}
-function go(v){view=v;if(v==="co")CE={};setHash(HASH[v]);render();scrollTo(0,0);const h=$("#app h1");h&&h.focus()}
+function go(v){view=v;if(v==="co")CE={};setHash(v==="cat"&&F.page>1?"#/catalogo/"+F.page:HASH[v]);render();scrollTo(0,0);const h=$("#app h1");h&&h.focus()}
 let cur=0,GI=0;
-function route(force){const h=location.hash,m=h.match(/^#\/p\/(\d+)$/);if(m&&P[+m[1]]){cur=+m[1];GI=0;view="prod"}else if(h==="#/catalogo")view="cat";else if(h==="#/ayuda")view="help";else if(force||view==="prod"||view==="cat"||view==="help")view="home";render()}
+function route(force){const h=location.hash,m=h.match(/^#\/p\/(\d+)$/),mc=h.match(/^#\/catalogo(?:\/(\d+))?$/);if(m&&P[+m[1]]){cur=+m[1];GI=0;view="prod"}else if(mc){view="cat";F.page=mc[1]?+mc[1]:1}else if(h==="#/ayuda")view="help";else if(force||view==="prod"||view==="cat"||view==="help")view="home";render()}
 let navT;function onNav(){clearTimeout(navT);navT=setTimeout(()=>{route(true);scrollTo(0,0);const h=$("#app h1");h&&h.focus()},0)}
 addEventListener("hashchange",onNav);addEventListener("popstate",onNav);
 function goCat(cats,av){F={cats:new Set(cats),av:av||"all",q:""};$("#q").value="";go("cat")}
@@ -313,7 +320,7 @@ function help(){
  $("#app").innerHTML=`<h1 class="h2" tabindex="-1">Ayuda</h1><p class="sub">Respuestas rápidas para comprar en STELLAR VAULT.</p><div class="helpg">
  ${q("¿Cómo compro?","<ol><li><b>Carrito:</b> añade productos y revisa tu carrito.</li><li><b>Entrega y pago:</b> elige envío o retiro, completa tus datos y paga.</li><li><b>Confirmación:</b> recibe tu comprobante en tu correo.</li></ol><p style='margin:8px 0 0'>Con “Comprar ahora” saltas directo al paso 2.</p>")}
  ${q("¿Cómo funciona la entrega?","Enviamos por Servientrega solo dentro de Ecuador. El envío cuesta $3.50 y es gratis desde $60 USD. También puedes retirar tu pedido en tienda sin costo.")}
- ${q("¿Qué métodos de pago aceptan?","Tarjeta de crédito o débito y DeUna (pago con QR desde tu celular).")}
+ ${q("¿Qué métodos de pago aceptan?","Pago en físico (efectivo al recibir tu pedido o al retirarlo en tienda) y DeUna (pago con QR desde tu celular).")}
  ${q("¿Qué es una preventa?","Es una reserva de un producto que aún no llega. La fecha estimada aparece en la ficha del producto.")}
  ${q("¿Puedo cambiar o quitar productos?","Sí, desde el carrito puedes cambiar la cantidad o eliminar un producto con el ícono de papelera. Si te equivocas, usa “Deshacer”.")}
  ${q("¿Necesito más ayuda?","Escríbenos al correo o al teléfono que aparecen en la sección Contacto, al final de la página.")}</div>`}
@@ -329,20 +336,34 @@ function home(){
  <div class="tiles">${[["m","Mangas",1],["n","Novelas ligeras",6],["f","Figuras coleccionables",9]].map(([k,t,i])=>`<button class="tile" onclick="setCat('${k}')" aria-label="Ver ${t} (${P.filter(x=>x.cat===k).length} títulos)" style="--tint:${P[i].tint};--c:${P[i].c}"><div class="tw">${cover(P[i],46)}</div><div><b>${t}</b><span>${P.filter(x=>x.cat===k).length} títulos · Ver todos →</span></div></button>`).join("")}</div>
  
  <h2 class="h2" style="margin:8px 0 16px">Productos destacados</h2><div class="grid">${[1,5,9,11].map(i=>card(P[i])).join("")}</div>
- <div class="cta"><button class="btn" style="width:auto;padding:0 28px" onclick="go('cat')">Ver todo el catálogo</button></div>`}
+ <div class="cta"><button class="btn" style="width:auto;padding:0 28px" onclick="openCat()">Ver todo el catálogo</button></div>`}
+const PER=9; // 9 por página = cuadrícula de 3×3; con 9 mangas, 9 novelas y 8 figuras cada categoría ocupa una página
+function pageList(c,t){const o=[];for(let i=1;i<=t;i++)if(i===1||i===t||Math.abs(i-c)<=1)o.push(i);else if(o[o.length-1]!=="…")o.push("…");return o}
+function pager(c,t){
+ if(t<2)return "";
+ return `<nav class="pager" aria-label="Paginación del catálogo"><button class="pg" ${c===1?"disabled":""} onclick="setPage(${c-1})" aria-label="Página anterior"><span aria-hidden="true">‹</span><span class="pgt"> Anterior</span></button>
+ <ol>${pageList(c,t).map(n=>n==="…"?`<li class="gap" aria-hidden="true">…</li>`:`<li><button class="pg num" ${n===c?'aria-current="page"':""} onclick="setPage(${n})" aria-label="${n===c?"Página "+n+", página actual":"Ir a la página "+n}">${n}</button></li>`).join("")}</ol>
+ <button class="pg" ${c===t?"disabled":""} onclick="setPage(${c+1})" aria-label="Página siguiente"><span class="pgt">Siguiente </span><span aria-hidden="true">›</span></button></nav>`}
+function repHash(h){if(location.hash===h||(!h&&!location.hash))return;try{history.replaceState(null,"",location.pathname+location.search+h)}catch(e){}}
+function resetPage(){F.page=1;if(view==="cat")repHash("#/catalogo");render()}
+function setPage(n){F.page=n;setHash(n>1?"#/catalogo/"+n:"#/catalogo");render();const h=$("#cat");if(h){h.scrollIntoView();h.focus({preventScroll:true})}}
+function openCat(){F.page=1;go("cat")}
 function catalog(){
  const list=P.filter(p=>F.cats.has(p.cat)&&(F.av==="all"||(F.av==="stock"?!p.pre:!!p.pre))&&(p.name+p.by+CAT[p.cat]).toLowerCase().includes(F.q.toLowerCase()));
  list.sort((a,b)=>"mnf".indexOf(a.cat)-"mnf".indexOf(b.cat)||a.id-b.id);
+ const tp=Math.max(1,Math.ceil(list.length/PER)),pg=Math.min(Math.max(1,F.page||1),tp);F.page=pg;
+ const from=(pg-1)*PER,pageItems=list.slice(from,from+PER),multi=new Set(list.map(x=>x.cat)).size>1;
+ const body=pageItems.map((x,i)=>(multi&&(i===0||x.cat!==pageItems[i-1].cat)?`<h2 class="grp">${CATP[x.cat]} <small>${P.filter(y=>y.cat===x.cat).length} títulos</small></h2>`:"")+card(x)).join("");
  const cnt=c=>P.filter(p=>p.cat===c).length;
- $("#app").innerHTML=`<h1 class="h2" id="cat" tabindex="-1">Catálogo de artículos</h1><p class="sub">Mostrando ${list.length} producto${list.length===1?"":"s"}</p>
+ $("#app").innerHTML=`<h1 class="h2" id="cat" tabindex="-1">Catálogo de artículos</h1><p class="sub" role="status" aria-live="polite">${list.length?`Mostrando ${from+1}–${from+pageItems.length} de ${list.length} producto${list.length===1?"":"s"}${tp>1?` · Página ${pg} de ${tp}`:""}`:"Sin resultados"}</p>
  <div class="layout"><aside class="panel"><h2>Filtros</h2><small>Refina tu búsqueda</small>
  <div class="lbl">CATEGORÍAS</div>
  ${[["m","Mangas"],["n","Novelas ligeras"],["f","Figuras coleccionables"]].map(([k,t])=>`<label class="opt"><input type="checkbox" ${F.cats.has(k)?"checked":""} onchange="togCat('${k}')"><span>${t}</span><span>${cnt(k)}</span></label>`).join("")}
  <div class="lbl">DISPONIBILIDAD</div>
- ${[["all","Todos"],["stock","En stock"],["pre","Preventa oficial"]].map(([k,t])=>`<label class="opt"><input type="radio" name="av" ${F.av===k?"checked":""} onchange="F.av='${k}';render()"><span>${t}</span></label>`).join("")}
- <button class="reset" onclick="F={cats:new Set(['m','n','f']),av:'all',q:''};$('#q').value='';render()">Restablecer filtros</button>
+ ${[["all","Todos"],["stock","En stock"],["pre","Preventa oficial"]].map(([k,t])=>`<label class="opt"><input type="radio" name="av" ${F.av===k?"checked":""} onchange="F.av='${k}';resetPage()"><span>${t}</span></label>`).join("")}
+ <button class="reset" onclick="F={cats:new Set(['m','n','f']),av:'all',q:'',page:1};$('#q').value='';resetPage()">Restablecer filtros</button>
  <div class="note">Envío gratis desde $60 USD</div></aside>
- <section>${list.length?`<div class="grid">${list.map(card).join("")}</div>`:`<div class="panel empty">No encontramos productos con esos filtros.</div>`}</section></div>`;
+ <section>${list.length?`<div class="grid">${body}</div>${pager(pg,tp)}`:`<div class="panel empty">No encontramos productos con esos filtros.</div>`}</section></div>`;
 }
 function coverCss(p,w=100){
  const t=p.name.toUpperCase().split(/ (?=VOL|1\/)/);
@@ -357,8 +378,8 @@ function card(p){
  <span class="tag">${CAT[p.cat]}</span><h3><a href="#/p/${p.id}">${p.name}</a></h3><p>${p.by}</p><p>${p.pub}</p>${st}${inCart?`<div class="stock" style="color:var(--acc);margin-top:-6px">✓ ${inCart} en tu carrito</div>`:""}
  <div class="price">${money(p.price)} USD<small>IVA incl.</small></div>
  <button class="btn" ${out?"disabled":""} data-add="${p.id}" onclick="add(${p.id})">${out?"Máximo en carrito":p.pre?"Reservar en preventa":"Añadir al carrito"}</button></article>`}
-function togCat(k){F.cats.has(k)?F.cats.delete(k):F.cats.add(k);render()}
-$("#q").oninput=e=>{F.q=e.target.value;if(view!=="cat"){view="cat";setHash("#/catalogo")}render()};
+function togCat(k){F.cats.has(k)?F.cats.delete(k):F.cats.add(k);resetPage()}
+$("#q").oninput=e=>{F.q=e.target.value;F.page=1;if(view!=="cat"){view="cat";setHash("#/catalogo")}else repHash("#/catalogo");render()};
 
 const room=id=>P[id].pre?99:P[id].stock-(cart[id]||0);
 let tt;function toast(m){const t=$("#toast");t.innerHTML=`<span>${esc(m)}</span><button onclick="openCart()">Ver carrito</button>`;t.classList.add("on");clearTimeout(tt);tt=setTimeout(()=>t.classList.remove("on"),5000)}
@@ -404,8 +425,8 @@ function checkout(){
  const ctl=k=>k==="prov"?sel("prov",PROV,"Selecciona tu provincia",'oninput="coProv(this)" autocomplete="address-level1"'):k==="city"?sel("city",CITY[V.prov]||[],V.prov?"Selecciona tu ciudad":"Primero elige la provincia",`oninput="coIn('city',this)" autocomplete="address-level2" ${V.prov?"":"disabled"}`):k==="type"?`<select id="co_type" oninput="setType(this.value)">${["Casa","Departamento","Oficina"].map(o=>`<option ${V.type===o?"selected":""}>${o}</option>`).join("")}</select>`:`<input id="co_${k}" value="${esc(V[k])}" type="${k==="email"?"email":k==="tel"?"tel":"text"}" placeholder="${CF[k][3]||""}" autocomplete="${CF[k][2]||"off"}" ${/opcional/.test(CF[k][0])?"":'required aria-required="true"'} ${CE[k]?'aria-invalid="true"':""} aria-describedby="co_${k}_e" oninput="coIn('${k}',this)">`;
  const fld=(k,w)=>`<div class="f ${CE[k]?"bad":""}" style="${w?"grid-column:1/-1":""}"><label for="co_${k}">${CF[k][0]}</label>${ctl(k)}<small id="co_${k}_e">⚠ ${CF[k][1]}</small></div>`;
  const mt=(v,t,d)=>`<label class="mt ${DM===v?"on":""}"><input type="radio" name="dm" value="${v}" ${DM===v?"checked":""} onchange="setDM('${v}')"><span><b>${t}</b><small>${d}</small></span></label>`;
- $("#app").innerHTML=`<button class="link back" onclick="go('cat')">← Volver al catálogo</button>${steps(2)}<h1 tabindex="-1">Finaliza tu pedido</h1><p class="sub">Elige cómo recibir tu pedido y paga en esta misma página.</p>
- ${Object.keys(CE).length||Object.keys(bad).length?`<div class="err" id="coAlert" role="alert">Completa los datos para continuar. Revisa los campos marcados.</div>`:""}
+ $("#app").innerHTML=`<button class="link back" onclick="go('cat')">← Volver al catálogo</button>${steps(2)}<h1 tabindex="-1">Finaliza tu pedido</h1><p class="sub">Elige cómo recibir tu pedido y cómo pagarlo en esta misma página.</p>
+ ${Object.keys(CE).length?`<div class="err" id="coAlert" role="alert">Completa los datos para continuar. Revisa los campos marcados.</div>`:""}
  <div class="layout co" style="grid-template-columns:1fr 400px"><div style="display:grid;gap:24px" ${busy?"inert":""}>
  <section class="panel"><fieldset class="meth" style="margin:0"><legend style="font-size:18px;margin-bottom:12px">Método de entrega</legend>${mt("ship","Envío a domicilio","Por Servientrega · solo dentro de Ecuador · $3.50 (gratis desde $60)")}${mt("pick","Retiro en tienda","Sin costo · Quito, Ecuador")}</fieldset></section>
  <section class="panel" aria-labelledby="hDir"><h2 id="hDir" style="font-size:18px;margin:0 0 8px">${DM==="ship"?"Dirección de entrega":"Datos de contacto"}</h2>
@@ -414,7 +435,7 @@ function checkout(){
  ${payPanel()}
  <section class="panel"><h2 style="font-size:18px;margin:0 0 8px">Artículos en tu pedido</h2>${Object.keys(cart).map(id=>`<div class="item" style="--c:${P[id].c}"><div class="mini" role="img" aria-label="Portada de ${esc(P[id].name)}" style="width:56px;height:56px;background:url('${esc(P[id].imgs[0])}') center/cover,var(--c)"></div><div class="t">${P[id].name}<div style="font-weight:400;font-size:12px;color:var(--mute)">${cart[id]} unidad${cart[id]>1?"es":""}</div></div><b>${money(P[id].price*cart[id])}</b></div>`).join("")}</section></div>
  <aside class="panel sum"><h2 style="font-size:18px;margin:0 0 12px">Resumen del pedido</h2><div class="row">Subtotal<b>${money(sub())}</b></div><div class="row">${DM==="pick"?"Retiro en tienda":"Envío"}<b>${money(ship())}</b></div><div class="row t">Total<span>${money(total())} USD</span></div>
- <button class="btn" style="margin-top:16px" ${busy?"disabled":""} onclick="submitPay()">${busy?`<span class="spin"></span>${M==="card"?"Autorizando pago seguro…":"Verificando pago con DeUna…"}`:M==="card"?"Pagar "+money(total())+" USD":"Ya realicé el pago con DeUna"}</button><button class="btn" style="margin-top:10px;background:none;color:var(--acc);border:2px solid var(--acc)" ${busy?"disabled":""} onclick="go('cat')">Seguir explorando</button><div id="payStat" role="status" tabindex="-1" class="foot">${busy?"Procesando tu pago. No cierres esta página.":"Conexión cifrada TLS · No guardamos los datos de tu tarjeta"}</div></aside></div>`}
+ <button class="btn" style="margin-top:16px" ${busy?"disabled":""} onclick="submitPay()">${busy?`<span class="spin"></span>${M==="fisico"?"Registrando tu pedido…":"Verificando pago con DeUna…"}`:M==="fisico"?"Confirmar pedido":"Ya realicé el pago con DeUna"}</button><button class="btn" style="margin-top:10px;background:none;color:var(--acc);border:2px solid var(--acc)" ${busy?"disabled":""} onclick="go('cat')">Seguir explorando</button><div id="payStat" role="status" tabindex="-1" class="foot">${busy?"Registrando tu pedido. No cierres esta página.":"Revisa tus datos antes de confirmar tu pedido"}</div></aside></div>`}
 
 /* ---- Detalle de producto ---- */
 const SL=p=>p.cat==="f"?["Vista frontal","Vista lateral","Base y detalles","Caja de colección"]:["Portada","Contraportada","Páginas interiores","Vista de detalle"];
@@ -463,57 +484,39 @@ function detail(){
 
 /* ---- Pago (en la misma página del checkout: 3 pasos en total) ---- */
 const steps=n=>`<ol class="steps" aria-label="Progreso de la compra">${["Carrito","Entrega y pago","Confirmación"].map((t,i)=>`<li class="${i+1<n?"ok":i+1===n?"cur":""}" ${i+1===n?'aria-current="step"':""}>${i+1<n?"✓ ":""}${i+1}. ${t}</li>`).join("")}</ol>`;
-let M="card",C={name:"",num:"",exp:"",cvv:""},bad={},busy=false;
-function clearAlert(){if(!Object.keys(CE).length&&!Object.keys(bad).length){const a=$("#coAlert");a&&a.remove()}}
-function setM(m){M=m;bad={};checkout();$("input[name=m]:checked").focus()}
+let M="fisico",busy=false;
+function clearAlert(){if(!Object.keys(CE).length){const a=$("#coAlert");a&&a.remove()}}
+function setM(m){M=m;checkout();$("input[name=m]:checked").focus()}
 function qr(){const n=25;let x=Math.round(total()*100)+7;const rnd=()=>(x=(x*1103515245+12345)&0x7fffffff)/0x7fffffff;let d="";
  for(let i=0;i<n;i++)for(let j=0;j<n;j++){const r0=i<8?0:i>=n-8?n-7:-1,c0=j<8?0:j>=n-8?n-7:-1;let on;
   if(r0>=0&&c0>=0&&!(r0>0&&c0>0)){const a=i-r0,b=j-c0;on=(a>=0&&a<7&&b>=0&&b<7)&&(a===0||a===6||b===0||b===6||(a>1&&a<5&&b>1&&b<5))}else on=rnd()>.55;
   if(on)d+=`M${j} ${i}h1v1h-1z`}
  return `<svg class="qr" viewBox="-1 -1 27 27" role="img" aria-label="Código QR de demostración para pagar con DeUna"><path d="${d}" fill="#2a1a2e"/></svg>`}
 function payPanel(){
- const f=(k,l,ph,msg,extra="")=>`<div class="f ${bad[k]?"bad":""}"><label for="c${k}">${l}</label><input id="c${k}" value="${esc(C[k])}" placeholder="${ph}" ${extra} oninput="onIn('${k}',this)" ${bad[k]?'aria-invalid="true"':""} aria-describedby="e${k}" aria-required="true"><small id="e${k}">⚠ ${msg}</small></div>`;
  const mt=(v,t,d)=>`<label class="mt ${M===v?"on":""}"><input type="radio" name="m" value="${v}" ${M===v?"checked":""} onchange="setM('${v}')"><span><b>${t}</b><small>${d}</small></span></label>`;
- const card=`${f("name","Nombre impreso en la tarjeta","Como aparece en la tarjeta","Escribe el nombre como aparece en la tarjeta.",'autocomplete="cc-name"')}
- ${f("num","Número de tarjeta","Número de 16 dígitos","Revisa el número: debe tener 16 dígitos.",'inputmode="numeric" autocomplete="cc-number"')}
- <div class="two">${f("exp","Fecha de expiración","MM/AA","Ingresa mes y año válidos.",'inputmode="numeric" autocomplete="cc-exp"')}${f("cvv","Código de seguridad (CVV)","3 dígitos","Ingresa 3 dígitos.",'inputmode="numeric" type="password" autocomplete="cc-csc"')}</div>`;
+ const fis=`<div class="info">${DM==="pick"?"Pagas en efectivo en la tienda cuando retiras tu pedido.":"Pagas en efectivo cuando recibes tu pedido por Servientrega."} No necesitas ingresar datos de tarjeta.</div><p style="margin:12px 0 0;font-weight:700">Monto a pagar en físico: ${money(total())} USD</p>`;
  const deuna=`<div class="info">Paga desde tu celular con la app DeUna, sin escribir los datos de tu tarjeta.</div>${qr()}<p class="qrc">QR de demostración (no es un código real)</p>
  <ol class="dsteps"><li>Abre la app DeUna y toca “Pagar con QR”.</li><li>Escanea el código y revisa el monto.</li><li>Confirma el pago y vuelve aquí.</li></ol>`;
  return `<section class="panel" aria-labelledby="hPay"><h2 id="hPay" style="font-size:18px;margin:0 0 12px">Pago</h2>
- <fieldset class="meth" style="margin:0"><legend>Método de pago</legend>${mt("card","Tarjeta","Crédito o débito")}${mt("deuna","DeUna","Pago con QR desde el celular")}</fieldset>
- ${M==="card"?`<div class="info">Pago protegido con validación bancaria y cifrado de extremo a extremo.</div>${card}`:deuna}</section>`}
-function onIn(k,el){
- let v=el.value;
- if(k==="num")v=v.replace(/\D/g,"").slice(0,16).replace(/(.{4})/g,"$1 ").trim();
- if(k==="exp"){v=v.replace(/\D/g,"").slice(0,4);if(v.length>2)v=v.slice(0,2)+"/"+v.slice(2)}
- if(k==="cvv")v=v.replace(/\D/g,"").slice(0,3);
- C[k]=v;el.value=v;if(bad[k]){delete bad[k];el.closest(".f").classList.remove("bad");el.removeAttribute("aria-invalid");clearAlert()}
-}
-function validate(){
- const b={};
- if(C.name.trim().split(/\s+/).filter(w=>w.length>1).length<2)b.name=1;
- if(C.num.replace(/\s/g,"").length!==16)b.num=1;
- const m=C.exp.match(/^(\d\d)\/(\d\d)$/);
- if(!m||+m[1]<1||+m[1]>12||(2000+ +m[2])*12+ +m[1]<new Date().getFullYear()*12+new Date().getMonth()+1)b.exp=1;
- if(C.cvv.length!==3)b.cvv=1;
- return b;
-}
+ <fieldset class="meth" style="margin:0"><legend>Método de pago</legend>${mt("fisico","Pago en físico","Efectivo al recibir o al retirar")}${mt("deuna","DeUna","Pago con QR desde el celular")}</fieldset>
+ ${M==="fisico"?fis:deuna}</section>`}
 function submitPay(){
  if(busy)return;
- CE=validateCo();bad=M==="card"?validate():{};
- if(Object.keys(CE).length||Object.keys(bad).length){checkout();const e=document.querySelector(".f.bad input,.f.bad select");e&&e.focus();return}
+ CE=validateCo();
+ if(Object.keys(CE).length){checkout();const e=document.querySelector(".f.bad input,.f.bad select");e&&e.focus();return}
  busy=true;checkout();$("#payStat").focus();
  setTimeout(()=>{
-  order={no:"#SV-2026-"+(1000+Math.floor(Math.random()*9000)),method:M==="deuna"?"DeUna":"Tarjeta **** "+C.num.slice(-4),dm:DM==="pick"?"Retiro en tienda":"Envío por Servientrega",units:count(),total:total(),email:V.email.trim()};
+  order={no:"#SV-2026-"+(1000+Math.floor(Math.random()*9000)),method:M==="deuna"?"DeUna":"Pago en físico (efectivo)",paid:M==="deuna",dm:DM==="pick"?"Retiro en tienda":"Envío por Servientrega",units:count(),total:total(),email:V.email.trim()};
   cart={};busy=false;view="ok";setHash("");render();scrollTo(0,0);$("#app h1").focus();
  },2200);
 }
 function done(){
- $("#app").innerHTML=`<div style="max-width:640px;margin:0 auto">${steps(3)}<div class="ok-t"><div class="check" aria-hidden="true">✓</div><h1 tabindex="-1">¡Transacción aprobada con éxito!</h1><p style="color:var(--mute);font-size:13px;margin:0">Tu pago fue validado. El comprobante fue enviado a <b>${esc(order.email)}</b>.</p></div>
- <div class="rec"><h2 style="margin:0 0 4px;font-size:15px;display:flex;justify-content:space-between">Comprobante digital<span style="color:var(--green);font-size:12px">APROBADO</span></h2>
- <div class="row">N.º de pedido<b>${order.no}</b></div><div class="row">Método de pago<b>${order.method}</b></div><div class="row">Entrega<b>${order.dm}</b></div><div class="row">Artículos<b>${order.units} unidad${order.units>1?"es":""}</b></div><div class="row">Total pagado<b>${money(order.total)} USD</b></div></div>
+ const pend=!order.paid,pick=order.dm==="Retiro en tienda";
+ $("#app").innerHTML=`<div style="max-width:640px;margin:0 auto">${steps(3)}<div class="ok-t"><div class="check" aria-hidden="true">✓</div><h1 tabindex="-1">¡Pedido confirmado!</h1><p style="color:var(--mute);font-size:13px;margin:0">${pend?`Pagarás ${money(order.total)} USD en efectivo ${pick?"al retirarlo en tienda":"al recibirlo"}.`:"Tu pago con DeUna fue verificado."} Enviamos el comprobante a <b>${esc(order.email)}</b>.</p></div>
+ <div class="rec"><h2 style="margin:0 0 4px;font-size:15px;display:flex;justify-content:space-between">Comprobante<span style="color:${pend?"#b45309":"var(--green)"};font-size:12px">${pend?"PAGO PENDIENTE":"PAGADO"}</span></h2>
+ <div class="row">N.º de pedido<b>${order.no}</b></div><div class="row">Método de pago<b>${order.method}</b></div><div class="row">Entrega<b>${order.dm}</b></div><div class="row">Artículos<b>${order.units} unidad${order.units>1?"es":""}</b></div><div class="row">${pend?"Total a pagar":"Total pagado"}<b>${money(order.total)} USD</b></div></div>
  <button class="btn g" onclick="finish()">Finalizar y volver al inicio</button></div>`}
-function finish(){DM="ship";M="card";C={name:"",num:"",exp:"",cvv:""};bad={};go("home")}
+function finish(){DM="ship";M="fisico";go("home")}
 document.addEventListener("keydown",e=>{
  if(e.key==="Escape"){closeCart();return}
  if(e.key!=="Tab")return;
@@ -526,3 +529,5 @@ document.addEventListener("keydown",e=>{
 });
 route();
 </script></body></html>
+
+</body></html>
